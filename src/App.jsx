@@ -55,9 +55,17 @@ function App() {
  
   
   return (
-    <div className="container mx-auto px-4 columns-2">
-      <h1>B0RT MART</h1>
+    <div className=" container mx-auto px-4 columns-2">
+    
+      <h1 className="text-xl text-teal-800 text-center">
+
+          BOT MARKET: {bots.length} BOTS IN STOCK
+
+        </h1>
+
+         
       
+    
         {bots.map(bot => (
          <DisplayBot
          key={bot.id}
@@ -71,10 +79,12 @@ function App() {
          botClass={bot.bot_class}
         id={bot.id}
         onBotClick={handleclick}
+        onSort={handleSort} 
        />
         ))}
-      
-    </div>
+        </div>
+    
+
   );
 };
 
