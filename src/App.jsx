@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react"
 import DisplayBot from "./components/DisplayBot"
+import NavBar from "./components/NavBar"
+import YourBotArmy from "./components/YourBotArmy"
+import BotCollection from "./components/BotCollection"
+import SortBar from "./components/SortBar"
 
 function App() {
 
   const [bots, setBots] = useState([])
+  const [army, botArmy] =useState([])
+  const [botClasses, setBotClasses] = useState([]);
 
   useEffect(() => {
 
@@ -52,19 +58,37 @@ function App() {
     });
     setBots(updatedBots);
   }
+
+  function handleDelete(id, botClass) {
+    const updatedBotClasses = botClasses.filter((bCl) => bCl !== botClass);
+    setBotClasses(updatedBotClasses);
+    const updatedArmy = army.filter((bot) => bot.id !== id);
+    setArmy(updatedArmy);
+  }
+
+  function handleDischarge(id, botClass) {
+    const updatedBotClasses = botClasses.filter((bCl) => bCl !== botClass);
+    setBotClasses(updatedBotClasses);
+    const updatedArmy = army.filter((bot) => bot.id !== id);
+    setArmy(updatedArmy);
+
+    army.map((bot) => {
+      if (bot.id === id) {
+        setBots([bot, ...bots]);
+      }
+    });
+  }
+
+
  
   
   return (
-    <div className=" container mx-auto px-4 columns-2">
+
+    <div className=" font-link w-screen">
+    <NavBar />
     
-      <h1 className="text-xl text-teal-800 text-center">
+    <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
 
-          BOT MARKET: {bots.length} BOTS IN STOCK
-
-        </h1>
-
-         
-      
     
         {bots.map(bot => (
          <DisplayBot
@@ -79,11 +103,11 @@ function App() {
          botClass={bot.bot_class}
         id={bot.id}
         onBotClick={handleclick}
-        onSort={handleSort} 
+        
        />
         ))}
         </div>
-    
+    </div>
 
   );
 };

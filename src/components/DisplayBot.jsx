@@ -7,7 +7,7 @@ function DisplayBot({name, category, image, phrase, damage, health, armor, id, o
   }
   return (
     <div
-      className="p-3 hover:scale-105"
+      className="p-6 hover:scale-105"
       onClick={handleClick}
     >
       <div className="rounded-md shadow-lg bg-green-200 w-60">
@@ -17,9 +17,9 @@ function DisplayBot({name, category, image, phrase, damage, health, armor, id, o
         <div className="p-4">
           <div className="text-red-500 mb-2 font-medium">
             <h4 className="text-2xl">{name}</h4>
-            <h5 className="text-xl">"{category}"</h5>
+            <h5 className="text-xl">{category}</h5>
           </div>
-          <p className="text-gray-700 mb-4 break-words">{phrase}</p>
+          <p className="text-blue-700  break-words ">{phrase}</p>
           <div className="flex justify-between">
             <p>❤️: {damage}</p>
             <p>⚡: {health}</p>
