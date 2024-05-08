@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
 import DisplayBot from "./components/DisplayBot"
 import NavBar from "./components/NavBar"
-import YourBotArmy from "./components/YourBotArmy"
-import BotCollection from "./components/BotCollection"
-import SortBar from "./components/SortBar"
 
 function App() {
 
