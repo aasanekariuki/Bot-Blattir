@@ -1,10 +1,10 @@
 import React from "react";
 
 function NavBar(){
-    return <nav className=" w-full flex flex-wrap items-center justify-between py-5 bg-green-600 shadow-lg">
+    return <nav className="bg-gray-800 py-4" >
     
-      <div className="container-fluid">
-        <h1 className="text-5xl italic ">THE BOT MART 254 🤖</h1>
+      <div className="container mx-auto" >
+        <h1 className="text-2xl font-bold text-white" >THE BOT MART 254 🤖</h1>
       </div>
     
   </nav>

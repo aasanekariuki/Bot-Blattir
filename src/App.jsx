@@ -1,47 +1,42 @@
-import { useEffect, useState } from "react"
-import DisplayBot from "./components/DisplayBot"
-import NavBar from "./components/NavBar"
+import { useEffect, useState } from "react";
+import DisplayBot from "./components/DisplayBot";
+import NavBar from "./components/NavBar";
+import SortBar from "./components/SortBar";
+import YourBotArmy from "./components/YourBotArmy";
 
 function App() {
-
-  const [bots, setBots] = useState([])
-  const [army, botArmy] =useState([])
+  const [bots, setBots] = useState([]);
+  const [army, botArmy] = useState([]);
   const [botClasses, setBotClasses] = useState([]);
 
   useEffect(() => {
+    fetch("http://localhost:3000/bots", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setBots(data));
+  }, []);
 
-   fetch('http://localhost:3000/bots', {
-    method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-   })
-
-   .then((res) => res.json())
-   .then((data) => setBots(data));
-
-  },[])
-
-  function handleclick(id, botClass){
+  function handleclick(id, botClass) {
     if (botArmy.length >= 10) {
-      alert('maximum limit reached')
-    }
-    else{
-      if(botClass.includes(botClass)){
-        alert('member from botclass already exicts');
+      alert("maximum limit reached");
+    } else {
+      if (botClass.includes(botClass)) {
+        alert("member from botclass already exicts");
+      } else {
+        bots.map((bot) => {
+          if (bot.id === id) {
+            setArmy([...army, bot]);
+            setBotClasses([...botClass, bot.bot_class]);
+          } else {
+            const updatedBots = bots.filter((bot) => bot.id !== id);
+            setBots(updatedBots);
+          }
+        });
       }
-    else{
-      bots.map((bot) => {
-        if(bot.id === id){
-          setArmy([...army, bot]);
-          setBotClasses([...botClass, bot.bot_class]);
-        }
-        else {
-          const updatedBots = bots.filter((bot) => bot.id !== id);
-          setBots(updatedBots);
-        }
-      })
-    }
     }
   }
 
@@ -56,11 +51,24 @@ function App() {
     setBots(updatedBots);
   }
 
-  function handleDelete(id, botClass) {
-    const updatedBotClasses = botClasses.filter((bCl) => bCl !== botClass);
-    setBotClasses(updatedBotClasses);
-    const updatedArmy = army.filter((bot) => bot.id !== id);
-    setArmy(updatedArmy);
+  const deleteBot = (bot) => {
+    fetch(`http://localhost:3000/bots/${bot.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        setArmy((prevBots) => prevBots.filter((item) => item.id !== bot.id));
+        setBots((prevBots) => prevBots.filter((item) => item.id !== bot.id));
+      })
+      .then((data) => console.log(data));
+  };
+
+  function sortBots(property) {
+    const sortedBots = bots.slice();
+    sortedBots.sort((a, b) => a[property] - b[property]);
+    setBots(sortedBots);
   }
 
   function handleDischarge(id, botClass) {
@@ -76,37 +84,33 @@ function App() {
     });
   }
 
-
- 
-  
   return (
-
     <div className=" font-link w-screen">
-    <NavBar />
-    
-    <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
+      <NavBar />
 
-    
-        {bots.map(bot => (
-         <DisplayBot
-         key={bot.id}
-         name={bot.name}
-         image={bot.avatar_url}
-         category={bot.bot_class}
-         phrase={bot.catchphrase}
-         damage={bot.damage}
-         health={bot.health}
-         armor={bot.armor}
-         botClass={bot.bot_class}
-        id={bot.id}
-        onBotClick={handleclick}
-        
-       />
+      <SortBar sortBots={sortBots} />
+
+      <YourBotArmy  />
+
+      <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
+        {bots.map((bot) => (
+          <DisplayBot
+            key={bot.id}
+            name={bot.name}
+            image={bot.avatar_url}
+            category={bot.bot_class}
+            phrase={bot.catchphrase}
+            damage={bot.damage}
+            health={bot.health}
+            armor={bot.armor}
+            botClass={bot.bot_class}
+            id={bot.id}
+            onBotClick={handleclick}
+          />
         ))}
-        </div>
+      </div>
     </div>
-
   );
-};
+}
 
-export default App
+export default App;
