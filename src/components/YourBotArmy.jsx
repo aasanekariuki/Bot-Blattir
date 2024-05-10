@@ -1,6 +1,6 @@
 import React from "react";
 
-function YourBotArmy({ army, handleReleaseFromArmy, deleteBot }) {
+function YourBotArmy({ army, handleDischarge, deleteBot }) {
   return (
     <div className="py-8">
       <h1 className="text-2xl font-bold mb-4" >Your Bot Army</h1>
@@ -17,8 +17,8 @@ function YourBotArmy({ army, handleReleaseFromArmy, deleteBot }) {
               <div className="flex justify-center">
                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-2 rounded" onClick={() => deleteBot(bot)}> X </button>
 
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleReleaseFromArmy(bot)}>
-                Release
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDischarge(bot)}>
+                Discharge
               </button>
               </div>
 

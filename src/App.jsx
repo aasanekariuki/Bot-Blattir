@@ -3,6 +3,9 @@ import DisplayBot from "./components/DisplayBot";
 import NavBar from "./components/NavBar";
 import SortBar from "./components/SortBar";
 import YourBotArmy from "./components/YourBotArmy";
+import BotCollection from "./components/BotCollection"
+import { Routes, Route } from "react-router-dom";
+import BotCap from "./components/BotCap";
 
 function App() {
   const [bots, setBots] = useState([]);
@@ -19,6 +22,10 @@ function App() {
       .then((res) => res.json())
       .then((data) => setBots(data));
   }, []);
+
+  const handleAddToArmy = (bot) => {
+    setArmy(prevArmy => [...prevArmy, bot]);
+  };
 
   function handleclick(id, botClass) {
     if (botArmy.length >= 10) {
@@ -79,7 +86,11 @@ function App() {
 
       <SortBar sortBots={sortBots} />
 
-      <YourBotArmy army={army} handleDischarge={handleDischarge} deleteBot={deleteBot} />
+      <YourBotArmy
+        army={army}
+        handleDischarge={handleDischarge}
+        deleteBot={deleteBot}
+      />
 
       <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
         {bots.map((bot) => (
@@ -97,6 +108,16 @@ function App() {
             onBotClick={handleclick}
           />
         ))}
+
+        <Routes>
+          <Route path="/" element={<BotCollection bots={bots} />} />
+          <Route
+            path="/bots/:id"
+            element={
+              <BotCap bots={bots} handleAddToArmy={handleAddToArmy} />
+            }
+          />
+        </Routes>
       </div>
     </div>
   );
