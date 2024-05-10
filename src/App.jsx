@@ -40,17 +40,6 @@ function App() {
     }
   }
 
-  function handleSort(value) {
-    const updatedBots = allBots.filter((bot) => {
-      if (value === "All") {
-        return true;
-      } else {
-        return bot.bot_class === value;
-      }
-    });
-    setBots(updatedBots);
-  }
-
   const deleteBot = (bot) => {
     fetch(`http://localhost:3000/bots/${bot.id}`, {
       method: "DELETE",
@@ -90,7 +79,7 @@ function App() {
 
       <SortBar sortBots={sortBots} />
 
-      <YourBotArmy  />
+      <YourBotArmy army={army} handleDischarge={handleDischarge} deleteBot={deleteBot} />
 
       <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
         {bots.map((bot) => (
