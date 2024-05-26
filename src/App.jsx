@@ -81,7 +81,7 @@ function App() {
   }
 
   return (
-    <div className=" font-link w-screen">
+    <div className=" font-link w-screen font-sans ">
       <NavBar />
 
       <SortBar sortBots={sortBots} />
@@ -92,7 +92,7 @@ function App() {
         deleteBot={deleteBot}
       />
 
-      <div className=" container mx-auto px-4  grid grid-cols-4 gap-4 my-10">
+      <div  className="container mx-auto px-4 grid grid-cols-4 gap-4 my-10">
         {bots.map((bot) => (
           <DisplayBot
             key={bot.id}

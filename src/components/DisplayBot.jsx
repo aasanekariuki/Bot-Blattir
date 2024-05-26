@@ -1,15 +1,22 @@
-import React from 'react'
+import React from "react";
 
-function DisplayBot({name, category, image, phrase, damage, health, armor, id, onBotClick, botClass}) {
-
+function DisplayBot({
+  name,
+  category,
+  image,
+  phrase,
+  damage,
+  health,
+  armor,
+  id,
+  onBotClick,
+  botClass,
+}) {
   function handleClick() {
     onBotClick(id, botClass);
   }
   return (
-    <div
-      className="p-6 hover:scale-105"
-      onClick={handleClick}
-    >
+    <div className="p-6 hover:scale-105" onClick={handleClick}>
       <div className="rounded-md shadow-lg bg-green-200 w-60">
         <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
           <img className="rounded-t-lg" src={image} alt={name} />
@@ -29,7 +36,6 @@ function DisplayBot({name, category, image, phrase, damage, health, armor, id, o
       </div>
     </div>
   );
-
 }
 
-export default DisplayBot
+export default DisplayBot;
